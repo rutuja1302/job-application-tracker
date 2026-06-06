@@ -1,0 +1,22 @@
+<div class="container-sm registration-form">
+    <form>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="exampleInputName" [(ngModel)]="username"  name="username" aria-describedby="nameHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="email" name="email" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Example: test@gmail.com</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="register()">Submit</button>
+    </form>
+</div>
