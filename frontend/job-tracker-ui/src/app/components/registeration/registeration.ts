@@ -1,19 +1,39 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from '../../services/user-service';
+import { User } from '../../model/User';
 
 @Component({
   selector: 'app-registeration',
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './registeration.html',
   styleUrl: './registeration.css',
 })
 export class Registeration {
-  username: string = "";
-  email: string = "";
-  password: String = "";
+  registrationForm: FormGroup;
+  private userService = inject(UserService);
+  newUser!: User;
+
+  constructor(private fb: FormBuilder){
+    this.registrationForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+  }
 
   register(){
-    console.log(this.username+" "+this.email+" "+this.password);
+    if(this.registrationForm.valid){
+      this.newUser = new User(this.registrationForm.value.username, this.registrationForm.value.email, this.registrationForm.value.password);
+      this.userService.createNewUser(this.newUser).subscribe((response) =>{
+        alert('User registered successfully!');
+      });
+    }else{
+      alert('Please fill mandatory fields!');
+    }
   }
 
 }

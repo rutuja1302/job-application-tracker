@@ -2,29 +2,28 @@
     <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card-body">
             <h5 class="card-title">Create Account</h5>
-            <form>
+            <form [formGroup]="registrationForm" (ngSubmit)="register()">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="exampleInputName" [(ngModel)]="username" name="username"
-                        aria-describedby="nameHelp">
+                    <input type="text" class="form-control" id="username" name="username"
+                        aria-describedby="nameHelp" formControlName="username">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="email" name="email"
-                        aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="email" name="email"
+                        aria-describedby="emailHelp" formControlName="email">
                     <div id="emailHelp" class="form-text">Example: test@gmail.com</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" class="form-control" id="exampleInputPassword1" >
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password"
-                        name="password">
+                    <input type="password" class="form-control" id="password" name="password" formControlName="password">
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-outline-primary" (click)="register()">Sign Up</button>
+                    <button type="submit" class="btn btn-outline-primary" [disabled]="registrationForm.invalid">Sign Up</button>
                 </div>
             </form>
         </div>
