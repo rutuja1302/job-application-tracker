@@ -10,4 +10,8 @@ export class UserService {
     createNewUser(data: any){
         return this.httpClient.post(this.baseUrl+'/register', data);
     }
+
+    login(data: any){
+        return this.httpClient.post(this.baseUrl+'/login',data);
+    }
 }

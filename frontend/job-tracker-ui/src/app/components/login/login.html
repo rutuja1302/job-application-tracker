@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <div class="card-body">
+            <h5 class="card-title">Log in</h5>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email"
+                        aria-describedby="emailHelp" formControlName="email">
+                    <div id="emailHelp" class="form-text">Example: test@gmail.com</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-outline-primary" [disabled]="loginForm.invalid">Login</button>
+                    <p style="text-align: center;">Don't have an account? <a routerLink="/register" routerLinkActive="active">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

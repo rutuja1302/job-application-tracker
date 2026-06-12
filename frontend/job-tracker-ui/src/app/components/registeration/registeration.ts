@@ -2,12 +2,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 import { User } from '../../model/User';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-registeration',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './registeration.html',
   styleUrl: './registeration.css',
