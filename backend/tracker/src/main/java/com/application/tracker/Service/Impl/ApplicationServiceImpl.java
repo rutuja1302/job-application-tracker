@@ -1,5 +1,6 @@
 package com.application.tracker.Service.Impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import com.application.tracker.Service.ApplicationService;
 import com.application.tracker.entity.Application;
 import com.application.tracker.entity.User;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ApplicationServiceImpl implements ApplicationService{
 
     @Autowired
@@ -31,6 +35,9 @@ public class ApplicationServiceImpl implements ApplicationService{
         User user = userRepository.findById(userId).orElseThrow();
 
         application.setUser(user);
+        application.setCreatedBy(userId);
+        application.setCreationTime(LocalDateTime.now());
+        
         Application newApplication = applicationRepository.save(application);
         return newApplication;
     }
