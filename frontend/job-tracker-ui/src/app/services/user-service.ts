@@ -12,6 +12,6 @@ export class UserService {
     }
 
     login(data: any){
-        return this.httpClient.post(this.baseUrl+'/login',data);
+        return this.httpClient.post(this.baseUrl+'/login',data,{responseType: 'text'});
     }
 }

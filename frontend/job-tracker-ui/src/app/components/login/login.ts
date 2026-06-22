@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class Login {
   loginForm: FormGroup;
   userService = inject(UserService);
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private router: Router){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -26,7 +26,11 @@ export class Login {
   login(){
     if(this.loginForm.valid){
       this.userService.login(this.loginForm.value).subscribe((response) => {
-        console.log(response);
+        localStorage.setItem('token', response);
+        this.router.navigate(['/manage-applications']);
+      },(error) =>{
+        console.log(error);
+        alert(error.error);
       })
     }else{
       alert('Email and Password are required!');
