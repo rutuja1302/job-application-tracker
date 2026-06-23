@@ -1,0 +1,19 @@
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/manage-applications" style="margin-left: 1%;"><img src="briefcase-solid-full.svg" style="max-height: 30px;"/> Job Tracker</a>
+    <div class="navbar-action-items">
+        <button class="btn btn-dark" type="submit">+ Add Application</button>
+        <button type="button" class="btn btn-light logout-btn" (click)="logout()"><img src="logout.svg" style="max-height: 18px;"/> Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div class="row app-summary">
+    <div class="card shadow" *ngFor="let item of cardContentList">
+        <div class="card-body">
+            <h5 class="card-title">{{item.cardTitle}}</h5>
+            <p class="card-text">{{item.count}}</p>
+            <p class="card-text">{{item.cardSubText}}</p>
+        </div>
+    </div>
+</div>

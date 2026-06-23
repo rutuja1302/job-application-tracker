@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             boolean passwordCheck = passwordEncoder.matches(loginDetails.getPassword(), user.getPassword());
             if(passwordCheck){
                 //generate JWT
-                String token = jwtUtil.generateToken(user.getEmail());
+                String token = jwtUtil.generateToken(user);
                 return ResponseEntity.ok(token);
             }else{
                 throw new IncorrectPasswordException("Password is incorrect");

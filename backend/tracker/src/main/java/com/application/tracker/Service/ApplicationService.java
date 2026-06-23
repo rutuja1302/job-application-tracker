@@ -7,4 +7,5 @@ import com.application.tracker.entity.Application;
 public interface ApplicationService {
     List<Application> getApplicationsForUser(Long userId);
     Application createApplication(Application application, Long userId);
+    Application updateApplication(Application application, Long userId);
 }

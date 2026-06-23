@@ -16,9 +16,9 @@ ALTER TABLE IF EXISTS users
 -- Job Application status
 CREATE TABLE status
 (
-    "statusId" serial NOT NULL,
+    status_id serial NOT NULL,
     status character varying NOT NULL,
-    PRIMARY KEY ("statusId")
+    PRIMARY KEY (status_id)
 );
 
 ALTER TABLE IF EXISTS status
@@ -31,20 +31,21 @@ INSERT INTO status(status)
 --Application table
 CREATE TABLE applications
 (
-    "applicationId" smallserial NOT NULL,
-    "jobTitle" character varying(200) NOT NULL,
-    "companyName" character varying(200),
-    "jobLink" character varying,
+    application_id smallserial NOT NULL,
+    job_title character varying(200) NOT NULL,
+    company_name character varying(200),
+    job_link character varying,
     status integer,
     salary integer,
     location character varying(100),
-    "contactPerson" character varying(200),
+    contact_person character varying(200),
     notes character varying,
-    "createdBy" integer,
-    "creationTime" timestamp without time zone,
-    "updatedBy" integer,
-    "updationTime" timestamp without time zone,
-    PRIMARY KEY ("applicationId")
+    user_id integer NOT NULL,
+    created_by integer,
+    creation_time timestamp without time zone,
+    updated_by integer,
+    updation_time timestamp without time zone,
+    PRIMARY KEY (application_id)
 );
 
 ALTER TABLE IF EXISTS applications
