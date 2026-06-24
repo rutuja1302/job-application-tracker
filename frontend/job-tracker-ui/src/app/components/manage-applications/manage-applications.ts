@@ -24,6 +24,7 @@ export class ManageApplications {
   cardContentList: AppCardBody[] = [];
   applications: Application[] = [];
   applicationService = inject(ApplicationService);
+  displayedColumns: string[] = ['companyName', 'jobTitle', 'location','status', 'action'];
 
   constructor(private router: Router){}
 
@@ -33,8 +34,9 @@ export class ManageApplications {
   }
 
   getApplications(){
-    this.applicationService.getApplications().subscribe(response => {
-      console.log(response);
+    this.applicationService.getApplications().subscribe((response: any) => {
+      this.applications = response as Application[];
+      console.log(this.applications);
     })
   }
 

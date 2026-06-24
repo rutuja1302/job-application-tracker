@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.tracker.Service.ApplicationService;
+import com.application.tracker.dto.ApplicationDto;
 import com.application.tracker.entity.Application;
 import com.application.tracker.entity.User;
 
@@ -27,9 +28,9 @@ public class ApplicationController {
     private User loggedInUser;
 
     @GetMapping("/applications")
-    public List<Application> getAllApplicationsForUser(){
+    public List<ApplicationDto> getAllApplicationsForUser(){
         this.getLoggedInUser();
-        List<Application> applications = applicationService.getApplicationsForUser(this.loggedInUser.getId());
+        List<ApplicationDto> applications = applicationService.getApplicationsForUser(this.loggedInUser.getId());
 
         return applications;
     }
