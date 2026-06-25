@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppCardBody } from '../../model/AppCardBody';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { Application } from '../../model/Application';
 import { ApplicationService } from '../../services/application-service';
 
@@ -22,9 +22,12 @@ import { ApplicationService } from '../../services/application-service';
 export class ManageApplications {
 
   cardContentList: AppCardBody[] = [];
-  applications: Application[] = [];
   applicationService = inject(ApplicationService);
   displayedColumns: string[] = ['companyName', 'jobTitle', 'location','status', 'action'];
+  dataSource = new MatTableDataSource<Application>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private router: Router){}
 
@@ -33,19 +36,24 @@ export class ManageApplications {
     this.loadCardContent();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   getApplications(){
     this.applicationService.getApplications().subscribe((response: any) => {
-      this.applications = response as Application[];
-      console.log(this.applications);
+      this.dataSource.data = response;
+      console.log(this.dataSource);
     })
   }
 
   loadCardContent(){
     this.cardContentList = [
-      new AppCardBody('Total Applications', 3, 'Applications submitted'),
-      new AppCardBody('Interviews', 3, 'Interview Invitations'),
-      new AppCardBody('Offers', 3, 'Job Offers received'),
-      new AppCardBody('Response Rate', 3, 'Overall response rate')
+      new AppCardBody('Total Applications', 3, 'Applications submitted','paper-plane-regular-full.svg'),
+      new AppCardBody('Interviews', 3, 'Interview Invitations','calendar-regular-full.svg'),
+      new AppCardBody('Offers', 3, 'Job Offers received','arrow-trend-up.svg'),
+      new AppCardBody('Response Rate', 3, 'Overall response rate','signal-solid-full.svg')
     ]
   }
 
