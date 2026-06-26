@@ -1,9 +1,11 @@
+import { Status } from "./Status";
+
 export class Application {
     applicationId: number;
     jobTitle: string;
     companyName: string;
     jobLink: string;
-    status: number;
+    status: Status;
     salary: number;
     location: string;
     contactPerson: string;
@@ -13,7 +15,7 @@ export class Application {
     jobTitle: string,
     companyName: string,
     jobLink: string,
-    status: number,
+    status: Status,
     salary: number,
     location: string,
     contactPerson: string,

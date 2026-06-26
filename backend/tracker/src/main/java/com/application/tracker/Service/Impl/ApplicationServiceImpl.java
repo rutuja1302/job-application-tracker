@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.application.tracker.Repository.ApplicationRepository;
 import com.application.tracker.Repository.UserRepository;
 import com.application.tracker.Service.ApplicationService;
+import com.application.tracker.dto.ApplicationDto;
 import com.application.tracker.entity.Application;
 import com.application.tracker.entity.User;
+import com.application.tracker.mapper.ApplicationMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,10 +27,14 @@ public class ApplicationServiceImpl implements ApplicationService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ApplicationMapper applicationMapper;
+
     @Override
-    public List<Application> getApplicationsForUser(Long userId){
+    public List<ApplicationDto> getApplicationsForUser(Long userId){
         List<Application> jobApplications = applicationRepository.findByUserId(userId);
-        return jobApplications;
+        List<ApplicationDto> jobApplicationDtos = jobApplications.stream().map(app -> applicationMapper.toDto(app)).toList();
+        return jobApplicationDtos;
     }
 
     @Override
