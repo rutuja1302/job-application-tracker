@@ -27,7 +27,9 @@ public class Application {
     private String companyName;
     @Column(name="job_link")
     private String jobLink;
-    private Integer status;
+    @ManyToOne
+    @JoinColumn(name = "status")
+    private Status status;
     private Integer salary;
     private String location;
     @Column(name="contact_person")

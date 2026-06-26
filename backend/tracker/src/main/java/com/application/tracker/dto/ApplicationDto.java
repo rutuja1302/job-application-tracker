@@ -1,5 +1,7 @@
 package com.application.tracker.dto;
 
+import com.application.tracker.entity.Status;
+
 import lombok.Data;
 
 @Data
@@ -8,7 +10,7 @@ public class ApplicationDto {
     private String jobTitle;
     private String companyName;
      private String jobLink;
-    private Integer status;
+    private Status status;
     private Integer salary;
     private String location;
     private String contactPerson;
