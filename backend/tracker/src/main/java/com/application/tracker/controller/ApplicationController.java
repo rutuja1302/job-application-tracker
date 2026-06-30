@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.application.tracker.Service.ApplicationService;
 import com.application.tracker.dto.ApplicationDto;
 import com.application.tracker.entity.Application;
+import com.application.tracker.entity.Status;
 import com.application.tracker.entity.User;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class ApplicationController {
     }
 
     @PostMapping("/create-application")
-    public Application createNewApplication(@RequestBody Application application){
+    public ApplicationDto createNewApplication(@RequestBody ApplicationDto application){
         this.getLoggedInUser();
         return applicationService.createApplication(application, this.loggedInUser.getId());
     }
@@ -45,6 +46,11 @@ public class ApplicationController {
     public Application updateApplication(@RequestBody Application application){
         this.getLoggedInUser();
         return applicationService.updateApplication(application, this.loggedInUser.getId());
+    }
+
+    @GetMapping("/statusList")
+    public List<Status> getStatusList(){
+        return applicationService.getStatusList();
     }
 
     private void getLoggedInUser(){

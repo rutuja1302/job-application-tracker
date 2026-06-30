@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.tracker.Repository.ApplicationRepository;
+import com.application.tracker.Repository.StatusRepository;
 import com.application.tracker.Repository.UserRepository;
 import com.application.tracker.Service.ApplicationService;
 import com.application.tracker.dto.ApplicationDto;
 import com.application.tracker.entity.Application;
+import com.application.tracker.entity.Status;
 import com.application.tracker.entity.User;
 import com.application.tracker.mapper.ApplicationMapper;
 
@@ -30,6 +32,9 @@ public class ApplicationServiceImpl implements ApplicationService{
     @Autowired
     private ApplicationMapper applicationMapper;
 
+    @Autowired
+    private StatusRepository statusRepository;
+
     @Override
     public List<ApplicationDto> getApplicationsForUser(Long userId){
         List<Application> jobApplications = applicationRepository.findByUserId(userId);
@@ -38,7 +43,8 @@ public class ApplicationServiceImpl implements ApplicationService{
     }
 
     @Override
-    public Application createApplication(Application application, Long userId){
+    public ApplicationDto createApplication(ApplicationDto applicationDto, Long userId){
+        Application application = applicationMapper.toApplication(applicationDto);
         User user = userRepository.findById(userId).orElseThrow();
 
         application.setUser(user);
@@ -46,7 +52,7 @@ public class ApplicationServiceImpl implements ApplicationService{
         application.setCreationTime(LocalDateTime.now());
         
         Application newApplication = applicationRepository.save(application);
-        return newApplication;
+        return applicationMapper.toDto(newApplication);
     }
 
     @Override
@@ -66,5 +72,10 @@ public class ApplicationServiceImpl implements ApplicationService{
             throw new IllegalArgumentException("Application Not Found!");
         }
         return updatedApplication;
+    }
+
+    @Override
+    public List<Status> getStatusList(){
+        return statusRepository.findAll();
     }
 }

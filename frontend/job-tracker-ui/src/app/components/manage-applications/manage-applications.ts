@@ -7,6 +7,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { Application } from '../../model/Application';
 import { ApplicationService } from '../../services/application-service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Status } from '../../model/Status';
 
 @Component({
   selector: 'app-manage-applications',
@@ -14,7 +16,9 @@ import { ApplicationService } from '../../services/application-service';
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule
 ],
   templateUrl: './manage-applications.html',
   styleUrl: './manage-applications.css',
@@ -25,15 +29,29 @@ export class ManageApplications {
   applicationService = inject(ApplicationService);
   displayedColumns: string[] = ['companyName', 'jobTitle', 'location','status', 'action'];
   dataSource = new MatTableDataSource<Application>();
+  statusList: Status[] = [];
+  applicationForm: FormGroup;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private fb: FormBuilder){
+    this.applicationForm = this.fb.group({
+      jobTitle: ['', [Validators.required, Validators.min(3)]],
+      companyName: ['', [Validators.required, Validators.min(3)]],
+      jobLink: [''],
+      status: [null, Validators.required],
+      salary: [0],
+      location: [''],
+      contactPerson: [''],
+      notes: ['']
+    });
+  }
 
   ngOnInit(){
     this.getApplications();
     this.loadCardContent();
+    this.getStatusList();
   }
 
   ngAfterViewInit() {
@@ -46,6 +64,21 @@ export class ManageApplications {
       this.dataSource.data = response;
       console.log(this.dataSource);
     })
+  }
+
+  getStatusList(){
+    this.applicationService.getStatuses().subscribe((response: any) => {
+      this.statusList = response;
+      console.log("st: "+this.statusList)
+    })
+  }
+
+  addApplication(){
+    console.log(this.applicationForm);
+    this.applicationService.createApplication(this.applicationForm.value).subscribe((response) => {
+      console.log(response);
+      this.getApplications();
+    });
   }
 
   loadCardContent(){

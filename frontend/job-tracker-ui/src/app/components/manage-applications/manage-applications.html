@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="/manage-applications" style="margin-left: 1%;"><img src="briefcase-solid-full.svg" style="max-height: 30px;"/> Job Tracker</a>
     <div class="navbar-action-items">
-        <button class="btn btn-dark" type="submit">+ Add Application</button>
+        <button class="btn btn-dark" type="submit" data-bs-toggle="modal" data-bs-target="#addAppModal">+ Add Application</button>
         <button type="button" class="btn btn-light logout-btn" (click)="logout()"><img src="logout.svg" style="max-height: 18px;"/> Logout</button>
     </div>
   </div>
@@ -61,4 +61,80 @@
                  aria-label="Select page of applications">
   </mat-paginator>
 
+</div>
+
+<!-- Add Application Modal --> 
+<div class="modal fade"  id="addAppModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addAppModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Application</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form [formGroup]="applicationForm" (ngSubmit)="addApplication()">
+      <div class="modal-body">
+                <div class="mb-3 row">
+                    <label for="jobTitle" class="col-sm-2 col-form-label">Job Title</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="jobTitle" name="jobTitle"
+                        aria-describedby="jobTitleHelp" formControlName="jobTitle">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="companyName" class="col-sm-2 col-form-label">Company</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="companyName" name="companyName"
+                        aria-describedby="companyNameHelp" formControlName="companyName">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="jobLink" class="col-sm-2 col-form-label">Link</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="jobLink" name="jobLink"
+                        aria-describedby="jobLinkHelp" formControlName="jobLink">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="status" class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-10">
+                       <select class="form-select" aria-label="status" id="status" name="status" formControlName="status">
+                        <option selected ngValue]="null">Select status</option>
+                        <option *ngFor="let status of statusList" [ngValue]="status">{{status.status}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="salary" class="col-sm-2 col-form-label">Salary</label>
+                    <div class="col-sm-10">
+                      <input type="number" class="form-control" id="salary" name="salary"
+                        aria-describedby="salaryHelp" formControlName="salary">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="location" class="col-sm-2 col-form-label">Location</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="location" name="location"
+                        aria-describedby="locationHelp" formControlName="location">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="contactPerson" class="col-sm-2 col-form-label">Contact Person</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="contactPerson" name="contactPerson"
+                        aria-describedby="contactPersonHelp" formControlName="contactPerson">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="notes" class="col-sm-2 col-form-label">Notes</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" id="notes" name="notes" rows="3" formControlName="notes"></textarea>
+                    </div>
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-dark" [disabled]="applicationForm.invalid">Submit</button>
+      </div>
+       </form>
+    </div>
+  </div>
 </div>
