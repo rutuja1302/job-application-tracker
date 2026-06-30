@@ -1,32 +1,33 @@
-.navbar-action-items{
+.navbar-action-items {
     width: 23%;
 }
 
-.logout-btn{
+.logout-btn {
     width: 40%;
     margin-left: 1%;
 }
 
-.card{
+.card {
     width: 20%;
     margin: 2% 4% 2% 0%;
 }
 
-.card-subtext{
+.card-subtext {
     font-size: 12px;
     color: grey;
 }
 
-.app-summary{
+.app-summary {
     margin-left: 5%;
 }
 
-.application-data{
+.application-data {
     width: 94%;
     margin: 24px auto;
 }
 
-.mat-mdc-table, .mat-mdc-paginator {
+.mat-mdc-table,
+.mat-mdc-paginator {
     background-color: #ffffff;
 }
 
@@ -35,3 +36,39 @@
     border-bottom-color: grey;
 }
 
+.status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    width: 35%;
+    text-align: center;
+}
+
+.status-saved {
+    background: #f1f3f5;
+    color: #6c757d;
+
+}
+
+.status-applied {
+    background: #e3f2fd;
+    color: #1976d2;
+
+}
+
+.status-interviewing {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.status-offer {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.status-rejected {
+    background: #fdecea;
+    color: #d32f2f;
+}
