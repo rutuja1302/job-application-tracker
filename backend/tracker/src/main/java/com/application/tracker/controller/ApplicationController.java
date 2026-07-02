@@ -43,7 +43,7 @@ public class ApplicationController {
     }
 
     @PutMapping("/update-application")
-    public Application updateApplication(@RequestBody Application application){
+    public ApplicationDto updateApplication(@RequestBody ApplicationDto application){
         this.getLoggedInUser();
         return applicationService.updateApplication(application, this.loggedInUser.getId());
     }

@@ -56,13 +56,13 @@ public class ApplicationServiceImpl implements ApplicationService{
     }
 
     @Override
-    public Application updateApplication(Application application, Long userId){
+    public ApplicationDto updateApplication(ApplicationDto applicationDto, Long userId){
         Application updatedApplication = new Application();
-        Optional<Application> app = applicationRepository.findById(application.getApplicationId());
+        Optional<Application> app = applicationRepository.findById(applicationDto.getApplicationId());
 
         if(app.isPresent()){
             User user = userRepository.findById(userId).orElseThrow();
-
+            Application application = applicationMapper.toApplication(applicationDto);
             application.setUser(user);
             application.setUpdatedBy(userId);
             application.setUpdationTime(LocalDateTime.now());
@@ -71,7 +71,7 @@ public class ApplicationServiceImpl implements ApplicationService{
         }else{
             throw new IllegalArgumentException("Application Not Found!");
         }
-        return updatedApplication;
+        return applicationMapper.toDto(updatedApplication);
     }
 
     @Override
