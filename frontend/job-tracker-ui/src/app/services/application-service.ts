@@ -33,4 +33,13 @@ export class ApplicationService {
         });
         return this.httpClient.post(this.baseUrl+'/create-application', data, { headers });
     }
+
+    updateApplication(data: any){
+        const token = localStorage.getItem('token');
+
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`
+        });
+        return this.httpClient.put(this.baseUrl+'/update-application', data, { headers });
+    }
 }
