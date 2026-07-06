@@ -80,9 +80,20 @@ export class ManageApplications {
   }
 
   addApplication(){
-    console.log(this.applicationForm);
     this.applicationService.createApplication(this.applicationForm.value).subscribe((response) => {
-      console.log(response);
+      this.closeModal();
+      alert('Application created successfully!');
+      this.getApplications();
+    });
+  }
+
+  updateApplication(){
+    let application : Application = this.applicationForm.value;
+    application.applicationId = this.selectedApplication.applicationId;
+
+    this.applicationService.updateApplication(application).subscribe((response) => {
+      this.closeModal();
+      alert('Application updated successfully!');
       this.getApplications();
     });
   }
@@ -110,12 +121,23 @@ export class ManageApplications {
   openEditModal(app: any) {
   this.mode = 'Edit';
   this.selectedApplication = app;
-    console.log(app);
   this.applicationForm.patchValue(app);
 
   const modal = new bootstrap.Modal(this.applicationModal.nativeElement);
     modal.show();
 }
+
+  closeModal(){
+    this.selectedApplication = null;
+    this.applicationForm.reset();
+
+    const modalElement = this.applicationModal.nativeElement;
+    const modal = bootstrap.Modal.getInstance(modalElement);
+
+  if (modal) {
+    modal.hide();
+  }
+  }
 
 compareStatus(o1: any, o2: any): boolean {
   return o1 && o2 ? o1.statusId === o2.statusId : o1 === o2;

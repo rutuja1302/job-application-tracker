@@ -71,7 +71,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">{{mode}} Application</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form [formGroup]="applicationForm" (ngSubmit)="addApplication()">
+      <form [formGroup]="applicationForm">
       <div class="modal-body">
                 <div class="mb-3 row">
                     <label for="jobTitle" class="col-sm-2 col-form-label">Job Title</label>
@@ -132,7 +132,9 @@
                 </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-dark" [disabled]="applicationForm.invalid">Submit</button>
+        <button type="submit" class="btn btn-dark" *ngIf="mode=='Add'" [disabled]="applicationForm.invalid" (click)="addApplication()">Submit</button>
+        <button type="submit" class="btn btn-dark" *ngIf="mode=='Edit'" [disabled]="applicationForm.invalid" (click)="updateApplication()">Update</button>
+
       </div>
        </form>
     </div>
