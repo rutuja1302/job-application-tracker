@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user-service';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import { Router, RouterModule } from '@angular/router';
 export class Login {
   loginForm: FormGroup;
   userService = inject(UserService);
+  authService = inject(AuthService);
 
   constructor(private fb: FormBuilder, private router: Router){
     this.loginForm = this.fb.group({
@@ -26,7 +28,7 @@ export class Login {
   login(){
     if(this.loginForm.valid){
       this.userService.login(this.loginForm.value).subscribe((response) => {
-        localStorage.setItem('token', response);
+        this.authService.saveToken(response);
         this.router.navigate(['/manage-applications']);
       },(error) =>{
         console.log(error);
