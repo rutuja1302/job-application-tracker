@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Backend (Java / Spring Boot)
+backend/**/target/
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Build outputs
+*.class
+*.jar
+*.war

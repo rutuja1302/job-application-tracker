@@ -10,6 +10,7 @@ import { ApplicationService } from '../../services/application-service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Status } from '../../model/Status';
 import * as bootstrap from 'bootstrap';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-manage-applications',
@@ -28,6 +29,7 @@ export class ManageApplications {
 
   cardContentList: AppCardBody[] = [];
   applicationService = inject(ApplicationService);
+  authService = inject(AuthService);
   displayedColumns: string[] = ['companyName', 'jobTitle', 'location','status', 'action'];
   dataSource = new MatTableDataSource<Application>();
   applicationsList: Application[] = [];
@@ -68,14 +70,12 @@ export class ManageApplications {
       this.applicationsList = response;
       this.dataSource.data = response;
       this.loadCardContent();
-      console.log(this.dataSource);
     })
   }
 
   getStatusList(){
     this.applicationService.getStatuses().subscribe((response: any) => {
       this.statusList = response;
-      console.log("st: "+this.statusList)
     })
   }
 
@@ -144,7 +144,7 @@ compareStatus(o1: any, o2: any): boolean {
 }
 
   logout(){
-    localStorage.clear();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 

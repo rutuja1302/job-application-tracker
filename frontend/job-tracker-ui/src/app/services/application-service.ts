@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Service()
 export class ApplicationService {
@@ -8,38 +9,18 @@ export class ApplicationService {
     constructor(){}
 
     getApplications() {
-        const token = localStorage.getItem('token');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`
-        });
-        return this.httpClient.get(this.baseUrl + '/applications', { headers });
+        return this.httpClient.get(this.baseUrl + '/applications');
     }
 
     getStatuses() {
-        const token = localStorage.getItem('token');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`
-        });
-        return this.httpClient.get(this.baseUrl + '/statusList', { headers });
+        return this.httpClient.get(this.baseUrl + '/statusList');
     }
 
     createApplication(data: any){
-        const token = localStorage.getItem('token');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`
-        });
-        return this.httpClient.post(this.baseUrl+'/create-application', data, { headers });
+        return this.httpClient.post(this.baseUrl+'/create-application', data);
     }
 
     updateApplication(data: any){
-        const token = localStorage.getItem('token');
-
-        const headers = new HttpHeaders({
-            Authorization: `Bearer ${token}`
-        });
-        return this.httpClient.put(this.baseUrl+'/update-application', data, { headers });
+        return this.httpClient.put(this.baseUrl+'/update-application', data);
     }
 }
