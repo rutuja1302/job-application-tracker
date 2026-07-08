@@ -101,7 +101,7 @@ export class ManageApplications {
   loadCardContent(){
     let interviews = this.applicationsList.filter(app => app.status.statusId==3).length;
     let offers = this.applicationsList.filter(app => app.status.statusId==4).length;
-    let response = Math.floor(((interviews+offers) / this.applicationsList.length) * 100)
+    let response = this.applicationsList.length>0 ? Math.floor(((interviews+offers) / this.applicationsList.length) * 100) : 0;
     this.cardContentList = [
       new AppCardBody('Total Applications', this.applicationsList.length.toString(), 'Applications submitted','paper-plane-regular-full.svg'),
       new AppCardBody('Interviews', interviews.toString(), 'Interview Invitations','calendar-regular-full.svg'),
